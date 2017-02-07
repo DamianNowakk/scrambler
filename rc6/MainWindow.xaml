@@ -1,0 +1,106 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d" x:Class="rc6.MainWindow"
+        Title="Szyfrator" Height="589.241" Width="539.333" 
+        ResizeMode="CanMinimize">
+
+    <Grid>
+        <TabControl>
+            <TabItem Header="Szyfrowanie">
+                <Grid>
+                    <Label Content="Plik wejściowy:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
+                    <Label Content="Plik wyjściowy:" HorizontalAlignment="Left" Margin="10,46,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
+                    <TextBox x:Name="textboxSzyfrowanieWejscie" MaxLines="1"  HorizontalAlignment="Left" Height="23" Text="" VerticalAlignment="Top" Width="321" Margin="102,14,0,0"/>
+                    <TextBox x:Name="textboxSzyfrowanieWyjscie" MaxLines="1"  HorizontalAlignment="Left" Height="23" Text="" VerticalAlignment="Top" Width="321" Margin="102,49,0,0" Grid.ColumnSpan="3" Grid.Column="1"/>
+                    <Button x:Name="buttonSzyfrowanieWczytaj" Content="wczytaj" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="428,14,0,0" Height="23" Click="buttonSzyfrowanieWczytaj_Click"/>
+                    <Button x:Name="buttonSzyfrowanieZapisz" Content="zapisz" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="428,49,0,0" Height="23" Click="buttonSzyfrowanieZapisz_Click"/>
+                    <GroupBox Header="Ustawienia RC6" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,104,0,0" Height="201" Width="211" BorderThickness="1" BorderBrush="LightGray">
+                        <Grid>
+                            <Label Content="Tryb:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,10,0,0"/>
+                            <Label Content="Długość klucza:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,50,0,0"/>
+                            <Label x:Name="labelSzyfrowaniePodblok" Content="Długość podbloku:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,90,0,0"/>
+                            <ComboBox x:Name="comboboxSzyfrowanieTryb" HorizontalAlignment="Left" VerticalAlignment="Top" Width="52" Margin="137,14,0,0" DropDownClosed="comboboxSzyfrowanieTryb_DropDownClosed">
+                                <ComboBoxItem IsSelected="True">ECB</ComboBoxItem>
+                                <ComboBoxItem>CBC</ComboBoxItem>
+                                <ComboBoxItem>CFB</ComboBoxItem>
+                                <ComboBoxItem>OFB</ComboBoxItem>
+                            </ComboBox>
+                            <ComboBox x:Name="comboboxSzyfrowanieDlKlucza" HorizontalAlignment="Left" VerticalAlignment="Top" Width="52" Margin="137,54,0,0" RenderTransformOrigin="0.577,-0.591" DropDownClosed="comboboxSzyfrowanieDlKlucza_DropDownClosed">
+                                <ComboBoxItem IsSelected="True">128</ComboBoxItem>
+                                <ComboBoxItem>192</ComboBoxItem>
+                                <ComboBoxItem>256</ComboBoxItem>
+                            </ComboBox>
+                            <ComboBox x:Name="comboboxSzyfrowaniePodblok" HorizontalAlignment="Left" VerticalAlignment="Top" Width="52" Margin="137,94,0,0" DropDownClosed="comboboxSzyfrowaniePodblok_DropDownClosed">
+                                <ComboBoxItem IsSelected="True">128</ComboBoxItem>
+                                <ComboBoxItem>120</ComboBoxItem>
+                                <ComboBoxItem>112</ComboBoxItem>
+                                <ComboBoxItem>104</ComboBoxItem>
+                                <ComboBoxItem>96</ComboBoxItem>
+                                <ComboBoxItem>88</ComboBoxItem>
+                                <ComboBoxItem>80</ComboBoxItem>
+                                <ComboBoxItem>72</ComboBoxItem>
+                                <ComboBoxItem>64</ComboBoxItem>
+                                <ComboBoxItem>56</ComboBoxItem>
+                                <ComboBoxItem>48</ComboBoxItem>
+                                <ComboBoxItem>40</ComboBoxItem>
+                                <ComboBoxItem>32</ComboBoxItem>
+                                <ComboBoxItem>24</ComboBoxItem>
+                                <ComboBoxItem>16</ComboBoxItem>
+                                <ComboBoxItem>8</ComboBoxItem>
+                            </ComboBox>
+                        </Grid>
+                    </GroupBox>
+                    <GroupBox Header="Odbiorcy" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="243,104,0,0" Height="201" Width="268">
+                        <Grid>
+                            <ListBox x:Name="listboxSzyfrowanieOdbiorcy" HorizontalAlignment="Left" Height="159" VerticalAlignment="Top" Width="162" Margin="10,10,0,0"/>
+                            <Button x:Name="buttonSzyfrowanieDodaj" Content="Dodaj" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="177,74,0,0" Click="buttonSzyfrowanieDodaj_Click"/>
+                            <Button x:Name="buttonSzyfrowanieUsun" Content="Usuń" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="177,113,0,0" Click="buttonSzyfrowanieUsun_Click" RenderTransformOrigin="-0.467,0.55"/>
+                            <Button x:Name="buttonSzyfrowanieNowy" Content="Nowy" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="177,37,0,0" Click="buttonSzyfrowanieNowy_Click"/>
+
+                        </Grid>
+                    </GroupBox>
+                    <Button x:Name="buttonSzyfrowanieSzyfruj" Content="Szyfruj" VerticalAlignment="Top" Margin="180,325,180,0" Height="32" Click="buttonSzyfrowanieSzyfruj_Click"/>
+                    <ProgressBar x:Name="progressBarSzyfrowanie" Minimum="0" Maximum="100" Value="0" HorizontalAlignment="Left" Height="14" VerticalAlignment="Top" Width="507" Margin="10,362,0,0"/>
+                    <GroupBox Header="log" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,381,0,0" Height="141" Width="501">
+                        <Grid HorizontalAlignment="Left" Height="131" VerticalAlignment="Top" Width="506" Margin="-9,0,-2,-12">
+                            <ListBox x:Name="listboxSzyfrowanieLog" Margin="20,10,20,20"/>
+                        </Grid>
+                    </GroupBox>
+
+                </Grid>
+            </TabItem>
+            <TabItem Header="Deszyfrowanie">
+                <Grid>
+                    <Label Content="Plik wejściowy:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
+                    <Label Content="Plik wyjściowy:" HorizontalAlignment="Left" Margin="10,46,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
+                    <TextBox x:Name="textboxOdszyfrowywanieWejscie" MaxLines="1"  HorizontalAlignment="Left" Height="23" Text="" VerticalAlignment="Top" Width="321" Margin="102,14,0,0"/>
+                    <TextBox x:Name="textboxOdszyfrowywanieWyjscie" MaxLines="1"  HorizontalAlignment="Left" Height="23" Text="" VerticalAlignment="Top" Width="321" Margin="102,49,0,0"/>
+                    <Button x:Name="buttonOdszyfrowywanieWczytaj" Content="wczytaj" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="428,14,0,0" Height="23" Click="buttonOdszyfrowywanieWczytaj_Click"/>
+                    <Button x:Name="buttonOdszyfrowywanieZapisz" Content="zapisz" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="428,49,0,0" Height="23" Click="buttonOdszyfrowywanieZapisz_Click_1"/>
+                    <GroupBox Header="Ustawienia RC6" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,104,0,0" Height="201" Width="211" BorderThickness="1" BorderBrush="LightGray">
+                        <Grid HorizontalAlignment="Left" Height="191" VerticalAlignment="Top" Width="201" Margin="0,0,-2,-12">
+                            <Label Content="Odbiorca:" HorizontalAlignment="Left" VerticalAlignment="Top" RenderTransformOrigin="1.368,1.962" Margin="0,46,0,0"/>
+                            <Label x:Name="labelOdszyfrowywanieOdbiorca" Content="" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="67,46,0,0"/>
+                            <Label Content="Hasło:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,81,0,0"/>
+                            <PasswordBox x:Name="textboxOdszyfrowywanieHaslo" Margin="48,84,10,84"/>
+                        </Grid>
+                    </GroupBox>
+                    <GroupBox Header="Odbiorcy" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="243,104,0,0" Height="201" Width="268">
+                        <Grid HorizontalAlignment="Left" Height="191" VerticalAlignment="Top" Width="258" Margin="0,0,-2,-12">
+                            <Button x:Name="buttonOdszyfrowywanieWybierz" Content="Wybierz" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="177,77,0,0" Click="buttonOdszyfrowywanieWybierz_Click"/>
+                            <ListBox x:Name="listboxOdszyfrowywanieOdbiorcy"  HorizontalAlignment="Left" Height="159" VerticalAlignment="Top" Width="162" Margin="10,10,0,0"/>
+                        </Grid>
+                    </GroupBox>
+                    <Button x:Name="buttonOdszyfrowywanieOdszyfruj" Content="Odszyfruj" VerticalAlignment="Top" Margin="180,325,180,0" Height="32" Click="buttonOdszyfrowywanieOdszyfruj_Click"/>
+                    <ProgressBar x:Name="progressBarOdszyfrowywanie" HorizontalAlignment="Left" Height="14" VerticalAlignment="Top" Width="507" Margin="10,362,0,0"/>
+                    <GroupBox Header="log" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,381,0,0" Height="141" Width="501">
+                        <Grid HorizontalAlignment="Left" Height="131" VerticalAlignment="Top" Width="506" Margin="-9,0,-2,-12">
+                            <ListBox x:Name="listboxOdszyfrowywanieLog" Margin="20,10,20,20"/>
+                        </Grid>
+                    </GroupBox>
+                </Grid>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</Window>
